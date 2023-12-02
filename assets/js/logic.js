@@ -1,7 +1,7 @@
 // timer function
-var secondsLeft = 75;
 
-function setTime() {
+
+function setTime(secondsLeft) {
   // get relevant DOM element
   let timeEl = document.querySelector("#time");
   // Sets interval in variable
@@ -19,8 +19,7 @@ function setTime() {
   }, 1000);
 }
 
-
-
+setTime(75);
 
 //render question function
 
