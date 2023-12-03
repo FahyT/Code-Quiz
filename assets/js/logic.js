@@ -22,18 +22,18 @@ function setTime() {
     if(currentScore === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls enter and record score function
-      
+      // Calls enter and record score function  
     }
-
   }, 1000);
 }
 
 //function to display feedback on last question. takes div to display feedback in as argument.
 
 function renderFeedback (div) {
+
   let lastAnswer = document.createElement("h3");
   lastAnswer.setAttribute("class", "feedback");
+
   if (lastAnswerCorrect && lastAnswerCorrect !== null) {
     lastAnswer.innerHTML = "Correct!"
     div.appendChild(lastAnswer);
@@ -41,6 +41,7 @@ function renderFeedback (div) {
     lastAnswer.innerHTML = "Wrong!"
     div.appendChild(lastAnswer);
   }
+
 }
 
 //render final screen function
@@ -50,6 +51,7 @@ function renderEndScreen () {
 
   const printScore = document.querySelector("#final-score");
   printScore.innerHTML = '' + currentScore;
+  renderFeedback(endScreen);
 };
 
 
@@ -72,7 +74,7 @@ function renderQuestions(myQuestions) {
   }
 
   //display feedback for last answer, unless it is the first question
-  renderFeedback();
+  renderFeedback(questionChoices);
 
   const answerButtons = questionChoices.querySelectorAll(".answerButton");
   for (i = 0; i < answerButtons.length; i++) {
