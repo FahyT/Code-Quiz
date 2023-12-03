@@ -26,15 +26,17 @@ const startButton = document.querySelector("#start");
 
 startButton.addEventListener("click", function() {
   const startScreen = document.querySelector("#start-screen");
+  const questionDiv = document.querySelector("#questions");
   const questionTitle = document.querySelector("#question-title");
   const questionChoices = document.querySelector("#choices");
 
   startScreen.innerHTML = '';
   setTime(75);
 
-  questionTitle.innerHTML = my_questions[0].question_text;
+  questionDiv.className = "Start";
+  questionTitle.innerHTML = my_questions[0].question_text; //need to dynamically choose questions or have for loop?
 
-
+  
 });
 
 
