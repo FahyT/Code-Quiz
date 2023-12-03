@@ -34,9 +34,14 @@ startButton.addEventListener("click", function() {
   setTime(75);
 
   questionDiv.className = "Start";
-  questionTitle.innerHTML = my_questions[0].question_text; //need to dynamically choose questions or have for loop?
-
+  questionTitle.innerHTML = my_questions[0].question_text; //need to dynamically choose questions or have while loop?
   
+  for (let i = 0; i < my_questions[0].answers.length; i++) {
+    let questionButton = document.createElement("button");
+    questionButton.textContent = '' + (i+1) + ". " + my_questions[0].answers[i]; //add number to start of question text
+    questionChoices.appendChild(questionButton);
+  }
+
 });
 
 
