@@ -4,20 +4,22 @@ const questionTitle = document.querySelector("#question-title");
 const questionChoices = document.querySelector("#choices");
 const timeEl = document.querySelector("#time");
 const startButton = document.querySelector("#start");
+const endScreen = document.querySelector("#end-screen");
 
 let lastAnswerCorrect = false;
+let currentScore = 75;
 
 // timer function
 
-function setTime(secondsLeft) {
+function setTime() {
   // get relevant DOM element
   
   // Sets interval in variable
   let timerInterval = setInterval(function() {
-    secondsLeft--;
-    timeEl.textContent = secondsLeft;
+    currentScore--;
+    timeEl.textContent = currentScore;
 
-    if(secondsLeft === 0) {
+    if(currentScore === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls enter and record score function
@@ -27,19 +29,23 @@ function setTime(secondsLeft) {
   }, 1000);
 }
 
-//select question and remove from array helper function
-
 //render final screen function
-function renderScoreEntry () {};
+function renderEndScreen () {
+  questionDiv.className = "hide";
+  endScreen.className = "start";
+
+  const printScore = document.querySelector("#final-score");
+  printScore.innerHTML = '' + currentScore;
+};
 
 //render question function, uses recursive call to keep questions coming
 
 function renderQuestions(myQuestions) {
 
-  let currentQuestion = myQuestions.shift();
+  let currentQuestion = myQuestions.shift(); //remove question from question array, or recursion will not stop
 
-  questionDiv.className = "Start";
-  questionTitle.innerHTML = currentQuestion.question_text; //need to dynamically choose questions or have while loop?
+  questionDiv.className = "start";
+  questionTitle.innerHTML = currentQuestion.question_text; 
   
   for (let i = 0; i < currentQuestion.answers.length; i++) {
     let questionButton = document.createElement("button");
@@ -52,20 +58,18 @@ function renderQuestions(myQuestions) {
   for (i = 0; i < answerButtons.length; i++) {
     answerButtons[i].addEventListener("click", function() {
       questionChoices.innerHTML = '';
-      myQuestions.length > 0 ? renderQuestions(myQuestions) : renderScoreEntry; //if there are still questions, render again, otherwise move to score entry screen.
+      myQuestions.length > 0 ? renderQuestions(myQuestions) : renderEndScreen(); //if there are still questions, render again, otherwise move to score entry screen.
     });
   }
 }
 
-//clear start screen, start timer
+//clear start screen, start timer, call questions.
 
 startButton.addEventListener("click", function() {
   startScreen.innerHTML = '';
   setTime(75);
   renderQuestions(myQuestions);
 });
-
-
 
 
 //function that reduces secondsleft if you get answer

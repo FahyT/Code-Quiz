@@ -25,8 +25,8 @@ question_4 = {
 },
 
 question_5 = {
-    question_text: "String values must be enclosed within _______ when being assuigned to variables",
-    answers: ["Quote marks", "Curly brackets", "Parentheses", ,"Square Brackets"],
+    question_text: "String values must be enclosed within _______ when being assigned to variables",
+    answers: ["Quote marks", "Curly brackets", "Parentheses", "Square Brackets"],
     correct_index: 0
 }
 
