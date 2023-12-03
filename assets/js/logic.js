@@ -1,6 +1,5 @@
 // timer function
 
-
 function setTime(secondsLeft) {
   // get relevant DOM element
   let timeEl = document.querySelector("#time");
@@ -19,9 +18,33 @@ function setTime(secondsLeft) {
   }, 1000);
 }
 
-setTime(75);
+//select question and remove from array helper function
 
-//render question function
+//clear start screen, start timer, render question
+
+const startButton = document.querySelector("#start");
+
+startButton.addEventListener("click", function() {
+  const startScreen = document.querySelector("#start-screen");
+  const questionTitle = document.querySelector("#question-title");
+  const questionChoices = document.querySelector("#choices");
+
+  startScreen.innerHTML = '';
+  setTime(75);
+
+  questionTitle.innerHTML = my_questions[0].question_text;
+
+
+});
+
+
+
+
+
+
+
+
+//function that reduces secondsleft if you get answer
 
 
 //enter and record score function
