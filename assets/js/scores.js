@@ -1,7 +1,7 @@
 const scoreList = document.querySelector("#highscores");
 const wipeButton = document.querySelector("#clear");
 
-let highScores = localStorage.getItem("score");
+let highScores = JSON.parse(localStorage.getItem("score"));
 
 for (let i = 0; i < highScores.length; i ++) {
     let li = document.createElement("li");
@@ -9,9 +9,8 @@ for (let i = 0; i < highScores.length; i ++) {
     scoreList.appendChild(li);
 }
 
-// endButton.addEventListener("click", function() {
-//     let highScoreInfo = initials.value + ": " + currentScore;
-//     let scoreArray = [];
-//     localStorage.setItem("score", scoreArray.push());
-//   });
+wipeButton.addEventListener("click", function() {
+    localStorage.clear();
+    scoreList.innerHTML = '';
+  });
 

@@ -10,10 +10,13 @@ const endButton = document.querySelector("#submit");
 
 let lastAnswerCorrect = null;
 let currentScore = 75;
+let scoreArray = [];
+
+//TODO: game should only run whilst timer > 0. should add this to recursive function call conditional line 97
 
 // timer function
 
-function setTime() {
+function setTime() { //TODO: SORT THIS OUT SO YOU CAN ACCURATELY STOP IT ONCE QUIZ FINISHES AND RECORD SCORE
   
   // Sets interval in variable
   let timerInterval = setInterval(function() {
@@ -57,8 +60,9 @@ function renderEndScreen () {
   //listen for submission of initials and create high-score array in local storage
   endButton.addEventListener("click", function() {
     let highScoreInfo = initials.value + ": " + currentScore;
-    let scoreArray = [];
-    localStorage.setItem("score", scoreArray.push());
+    JSON.parse(localStorage.getItem("score"))!== null ? scoreArray = JSON.parse(localStorage.getItem("score")) : scoreArray = []; //necessary to avoid error when pushing latest score
+    scoreArray.push(highScoreInfo);
+    localStorage.setItem("score", JSON.stringify(scoreArray));
   });
 };
 
@@ -92,7 +96,7 @@ function renderQuestions(myQuestions) {
         lastAnswerCorrect = false;
       }   
       questionChoices.innerHTML = '';
-      myQuestions.length > 0 ? renderQuestions(myQuestions) : renderEndScreen(); //if there are still questions, render again, otherwise move to score entry screen.
+      myQuestions.length > 0 ? renderQuestions(myQuestions) : renderEndScreen(); //if there are still questions, render again, otherwise move to score entry screen. 
     });
   }
 }
@@ -101,7 +105,7 @@ function renderQuestions(myQuestions) {
 
 startButton.addEventListener("click", function() {
   startScreen.innerHTML = '';
-  setTime(75);
+  setTime();
   renderQuestions(myQuestions);
 });
 
