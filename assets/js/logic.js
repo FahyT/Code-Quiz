@@ -5,6 +5,8 @@ const questionChoices = document.querySelector("#choices");
 const timeEl = document.querySelector("#time");
 const startButton = document.querySelector("#start");
 const endScreen = document.querySelector("#end-screen");
+const initials = document.querySelector("#initials");
+const endButton = document.querySelector("#submit");
 
 let lastAnswerCorrect = null;
 let currentScore = 75;
@@ -12,7 +14,6 @@ let currentScore = 75;
 // timer function
 
 function setTime() {
-  // get relevant DOM element
   
   // Sets interval in variable
   let timerInterval = setInterval(function() {
@@ -52,6 +53,13 @@ function renderEndScreen () {
   const printScore = document.querySelector("#final-score");
   printScore.innerHTML = '' + currentScore;
   renderFeedback(endScreen);
+
+  //listen for submission of initials and create high-score array in local storage
+  endButton.addEventListener("click", function() {
+    let highScoreInfo = initials.value + ": " + currentScore;
+    let scoreArray = [];
+    localStorage.setItem("score", scoreArray.push());
+  });
 };
 
 
