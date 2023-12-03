@@ -1,8 +1,17 @@
+const startScreen = document.querySelector("#start-screen");
+const questionDiv = document.querySelector("#questions");
+const questionTitle = document.querySelector("#question-title");
+const questionChoices = document.querySelector("#choices");
+const timeEl = document.querySelector("#time");
+const startButton = document.querySelector("#start");
+
+let lastAnswerCorrect = false;
+
 // timer function
 
 function setTime(secondsLeft) {
   // get relevant DOM element
-  let timeEl = document.querySelector("#time");
+  
   // Sets interval in variable
   let timerInterval = setInterval(function() {
     secondsLeft--;
@@ -20,38 +29,44 @@ function setTime(secondsLeft) {
 
 //select question and remove from array helper function
 
-//clear start screen, start timer, render question
+//render final screen function
+function renderScoreEntry () {};
 
-const startButton = document.querySelector("#start");
+//render question function, uses recursive call to keep questions coming
 
-startButton.addEventListener("click", function() {
-  const startScreen = document.querySelector("#start-screen");
-  const questionDiv = document.querySelector("#questions");
-  const questionTitle = document.querySelector("#question-title");
-  const questionChoices = document.querySelector("#choices");
+function renderQuestions(myQuestions) {
 
-  startScreen.innerHTML = '';
-  setTime(75);
+  let currentQuestion = myQuestions.shift();
 
   questionDiv.className = "Start";
-  questionTitle.innerHTML = my_questions[0].question_text; //need to dynamically choose questions or have while loop?
+  questionTitle.innerHTML = currentQuestion.question_text; //need to dynamically choose questions or have while loop?
   
-  for (let i = 0; i < my_questions[0].answers.length; i++) {
+  for (let i = 0; i < currentQuestion.answers.length; i++) {
     let questionButton = document.createElement("button");
-    questionButton.textContent = '' + (i+1) + ". " + my_questions[0].answers[i]; //add number to start of question text
+    questionButton.setAttribute("class", "answerButton");
+    questionButton.textContent = '' + (i+1) + ". " + currentQuestion.answers[i]; //add number to start of question text
     questionChoices.appendChild(questionButton);
   }
 
+  const answerButtons = questionChoices.querySelectorAll(".answerButton");
+  for (i = 0; i < answerButtons.length; i++) {
+    answerButtons[i].addEventListener("click", function() {
+      questionChoices.innerHTML = '';
+      myQuestions.length > 0 ? renderQuestions(myQuestions) : renderScoreEntry; //if there are still questions, render again, otherwise move to score entry screen.
+    });
+  }
+}
+
+//clear start screen, start timer
+
+startButton.addEventListener("click", function() {
+  startScreen.innerHTML = '';
+  setTime(75);
+  renderQuestions(myQuestions);
 });
-
-
-
-
 
 
 
 
 //function that reduces secondsleft if you get answer
 
-
-//enter and record score function

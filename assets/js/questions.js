@@ -1,4 +1,4 @@
-let my_questions = [
+let myQuestions = [
 
 question_1 = {
     question_text: "Commonly used data types do NOT include",
