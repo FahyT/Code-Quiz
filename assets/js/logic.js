@@ -10,6 +10,7 @@ const initials = document.querySelector("#initials");
 const endButton = document.querySelector("#submit");
 
 let lastAnswerCorrect = null;
+let finalQuestion = false;
 let currentScore = 75;
 let scoreArray = [];
 
@@ -21,13 +22,12 @@ function setTime() { //TODO: SORT THIS OUT SO YOU CAN ACCURATELY STOP IT ONCE QU
   
   // Sets interval in variable
   let timerInterval = setInterval(function() {
-    currentScore--;
-    timeEl.textContent = currentScore;
-
-    if(currentScore === 0 || myQuestions.length === 0) { //stop on final screen where score should be frozen
+    if(currentScore === 0 || finalQuestion) { //stop on final screen where score should be frozen
       // Stops execution of action at set interval
       clearInterval(timerInterval);
     }
+    currentScore--;
+    timeEl.textContent = currentScore;
   }, 1000);
 }
 
@@ -54,7 +54,7 @@ function renderEndScreen () {
   endScreen.className = "start";
 
   const printScore = document.querySelector("#final-score");
-  printScore.innerHTML = '' + currentScore;
+  printScore.innerHTML = '' + (currentScore-1); //takes one second to switch pages so is always 1 point too high
   renderFeedback(endScreen);
 
   //listen for submission of initials and create high-score array in local storage
@@ -97,7 +97,12 @@ function renderQuestions(myQuestions) {
         lastAnswerCorrect = false;
       }   
       questionChoices.innerHTML = '';
-      (myQuestions.length > 0 && currentScore > 0) ? renderQuestions(myQuestions) : renderEndScreen(); //if there are still questions and time remaining, render again, otherwise move to score entry screen. 
+      if (myQuestions.length > 0 && currentScore > 0) { //if there are still questions and time remaining, render again, otherwise move to score entry screen. 
+        renderQuestions(myQuestions) 
+      } else {
+        finalQuestion = true;
+        renderEndScreen();
+      }  
     });
   }
 }
