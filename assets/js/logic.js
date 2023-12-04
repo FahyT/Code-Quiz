@@ -32,7 +32,6 @@ function setTime() { //TODO: SORT THIS OUT SO YOU CAN ACCURATELY STOP IT ONCE QU
 }
 
 //function to display feedback on last question. takes div to display feedback in as argument.
-
 function renderFeedback (div) {
 
   let lastAnswer = document.createElement("h3");
@@ -50,7 +49,7 @@ function renderFeedback (div) {
 
 //render final screen function
 function renderEndScreen () {
-  //timer.className = "hide"; //get rid of timer.
+  timer.className = "hide"; //get rid of timer.
   questionDiv.className = "hide";
   endScreen.className = "start";
 
@@ -64,6 +63,7 @@ function renderEndScreen () {
     JSON.parse(localStorage.getItem("score"))!== null ? scoreArray = JSON.parse(localStorage.getItem("score")) : scoreArray = []; //necessary to avoid error when pushing latest score
     scoreArray.push(highScoreInfo);
     localStorage.setItem("score", JSON.stringify(scoreArray));
+    window.location = "highscores.html";
   });
 };
 
@@ -109,7 +109,3 @@ startButton.addEventListener("click", function() {
   setTime();
   renderQuestions(myQuestions);
 });
-
-
-//function that reduces secondsleft if you get answer
-
