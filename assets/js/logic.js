@@ -2,6 +2,7 @@ const startScreen = document.querySelector("#start-screen");
 const questionDiv = document.querySelector("#questions");
 const questionTitle = document.querySelector("#question-title");
 const questionChoices = document.querySelector("#choices");
+const timer = document.querySelector(".timer");
 const timeEl = document.querySelector("#time");
 const startButton = document.querySelector("#start");
 const endScreen = document.querySelector("#end-screen");
@@ -23,10 +24,9 @@ function setTime() { //TODO: SORT THIS OUT SO YOU CAN ACCURATELY STOP IT ONCE QU
     currentScore--;
     timeEl.textContent = currentScore;
 
-    if(currentScore === 0) {
+    if(currentScore === 0 || myQuestions.length === 0) { //stop on final screen where score should be frozen
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      // Calls enter and record score function  
     }
   }, 1000);
 }
@@ -50,6 +50,7 @@ function renderFeedback (div) {
 
 //render final screen function
 function renderEndScreen () {
+  //timer.className = "hide"; //get rid of timer.
   questionDiv.className = "hide";
   endScreen.className = "start";
 
@@ -96,7 +97,7 @@ function renderQuestions(myQuestions) {
         lastAnswerCorrect = false;
       }   
       questionChoices.innerHTML = '';
-      myQuestions.length > 0 ? renderQuestions(myQuestions) : renderEndScreen(); //if there are still questions, render again, otherwise move to score entry screen. 
+      (myQuestions.length > 0 && currentScore > 0) ? renderQuestions(myQuestions) : renderEndScreen(); //if there are still questions and time remaining, render again, otherwise move to score entry screen. 
     });
   }
 }
