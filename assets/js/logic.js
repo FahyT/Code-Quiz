@@ -50,7 +50,7 @@ function renderFeedback (div) {
 
 //render final screen function
 function renderEndScreen () {
-  //timer.className = "hide"; //get rid of timer.
+  timer.className = "hide"; 
   questionDiv.className = "hide";
   endScreen.className = "start";
 
