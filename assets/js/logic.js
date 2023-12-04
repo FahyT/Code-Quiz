@@ -22,12 +22,13 @@ function setTime() { //TODO: SORT THIS OUT SO YOU CAN ACCURATELY STOP IT ONCE QU
   
   // Sets interval in variable
   let timerInterval = setInterval(function() {
-    if(currentScore === 0 || finalQuestion) { //stop on final screen where score should be frozen
+    if(currentScore == 0 || finalQuestion) { //stop on final screen where score should be frozen
       // Stops execution of action at set interval
       clearInterval(timerInterval);
+    } else {
+      currentScore--;
+      timeEl.textContent = currentScore;
     }
-    currentScore--;
-    timeEl.textContent = currentScore;
   }, 1000);
 }
 
@@ -49,12 +50,12 @@ function renderFeedback (div) {
 
 //render final screen function
 function renderEndScreen () {
-  timer.className = "hide"; //get rid of timer.
+  //timer.className = "hide"; //get rid of timer.
   questionDiv.className = "hide";
   endScreen.className = "start";
 
   const printScore = document.querySelector("#final-score");
-  printScore.innerHTML = '' + (currentScore-1); //takes one second to switch pages so is always 1 point too high
+  printScore.innerHTML = '' + currentScore; 
   renderFeedback(endScreen);
 
   //listen for submission of initials and create high-score array in local storage
@@ -93,7 +94,7 @@ function renderQuestions(myQuestions) {
   for (i = 0; i < answerButtons.length; i++) {
     answerButtons[i].addEventListener("click", function() {
       if (this.id == "correct") {lastAnswerCorrect = true} else { //if correct, change bool and render it as correct next time, otherwise take it off score
-        currentScore -= 15;
+        currentScore >= 15 ? currentScore -= 15 : currentScore = 0;
         lastAnswerCorrect = false;
       }   
       questionChoices.innerHTML = '';
